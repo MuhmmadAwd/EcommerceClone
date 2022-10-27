@@ -19,7 +19,7 @@ namespace API.Controllers
             _repo = repo;
         }
 
-        public async Task<ActionResult<List<Product>>> GetProducts()
+        public async Task<ActionResult<List<Product>>> GetProductList()
         {
             var Products = await _repo.GetProductList();
             return Ok(Products);
