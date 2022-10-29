@@ -28,7 +28,7 @@ namespace API.Controllers
 
         public async Task<ActionResult<List<Product>>> GetProductList()
         {
-            var Products = await _productsRepo.GetListAsync();
+            var Products = await _productsRepo.GetListAllAsync();
             return Ok(Products);
         }
 
@@ -40,12 +40,12 @@ namespace API.Controllers
         [HttpGet("brands")]
         public async Task<ActionResult<List<ProductBrand>>> getProductBrandList()
         {
-            return Ok(await _productsBrandRepo.GetListAsync());
+            return Ok(await _productsBrandRepo.GetListAllAsync());
         }
         [HttpGet("types")]
         public async Task<ActionResult<List<ProductType>>> getProductTypeList()
         {
-            return Ok(await _productsTypeRepo.GetListAsync());
+            return Ok(await _productsTypeRepo.GetListAllAsync());
         }
     }
 }
