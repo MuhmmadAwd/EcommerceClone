@@ -1,9 +1,8 @@
 
 using Core.Entities;
 using Core.Interfaces;
-using Infrastructure.Data;
+using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -28,7 +27,8 @@ namespace API.Controllers
 
         public async Task<ActionResult<List<Product>>> GetProductList()
         {
-            var Products = await _productsRepo.GetListAllAsync();
+            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var Products = await _productsRepo.GetListAsync(spec);
             return Ok(Products);
         }
 
