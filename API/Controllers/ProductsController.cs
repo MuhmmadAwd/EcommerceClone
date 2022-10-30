@@ -28,10 +28,12 @@ namespace API.Controllers
             _productsBrandRepo = productsBrandRepo;
         }
 
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProductList()
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProductList(string sort)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var spec = new ProductsWithTypesAndBrandsSpecification(sort);
+
             var Products = await _productsRepo.GetListAsync(spec);
+
             return Ok(
                 _mapper.Map<IReadOnlyList<Product>,
                 IReadOnlyList<ProductToReturnDto>>(Products)
