@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 namespace Core.Specifications
 {
-    public class BaseSpecifcation<T> : ISpecification<T>
+    public class BaseSpecification<T> : ISpecification<T>
     {
-        public BaseSpecifcation()
+        public BaseSpecification()
         {
         }
 
-        public BaseSpecifcation(Expression<Func<T, bool>> criteria)
+        public BaseSpecification(Expression<Func<T, bool>> criteria)
         {
             Criteria = criteria;
         }
