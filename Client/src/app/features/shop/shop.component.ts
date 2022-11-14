@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/shared/models/product.model';
 import { ProductBrand } from 'src/app/shared/models/productBrand.model';
 import { ProductType } from 'src/app/shared/models/productType.model';
-import { ShopService } from '../../core/services/shop.service';
+import { ShopService } from './shop.service';
 
 @Component({
   selector: 'app-shop',
@@ -10,9 +10,11 @@ import { ShopService } from '../../core/services/shop.service';
   styleUrls: ['./shop.component.scss'],
 })
 export class ShopComponent implements OnInit {
-  productList?: Product[];
-  productBrandList?: ProductBrand[];
-  productTypeList?: ProductType[];
+  productList: Product[];
+  productBrandList: ProductBrand[];
+  productTypeList: ProductType[];
+  brandIdSelected = 0;
+  typeIdSelected = 0;
 
   constructor(private _shopService: ShopService) {}
 
@@ -23,21 +25,23 @@ export class ShopComponent implements OnInit {
   }
 
   getProductList() {
-    this._shopService.getProductList().subscribe({
-      next: (res) => {
-        this.productList = res.data;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this._shopService
+      .getProductList(this.brandIdSelected, this.typeIdSelected)
+      .subscribe({
+        next: (res) => {
+          this.productList = res?.data;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   getProductBrandList() {
     this._shopService.getProductBrandList().subscribe({
       next: (res) => {
         console.log(res);
-        this.productBrandList = res;
+        this.productBrandList = [{ id: 0, name: 'All' }, ...res];
       },
       error: (err) => {
         console.log(err);
@@ -48,11 +52,19 @@ export class ShopComponent implements OnInit {
   getProductTypeList() {
     this._shopService.getProductTypeList().subscribe({
       next: (res) => {
-        this.productTypeList = res;
+        this.productTypeList = [{ id: 0, name: 'All' }, ...res];
       },
       error: (err) => {
         console.log(err);
       },
     });
+  }
+  onBrandSelected(brandId: number) {
+    this.brandIdSelected = brandId;
+    this.getProductList();
+  }
+  onTypeSelected(typeId: number) {
+    this.typeIdSelected = typeId;
+    this.getProductList();
   }
 }

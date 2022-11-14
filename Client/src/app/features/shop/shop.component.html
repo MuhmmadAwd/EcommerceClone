@@ -12,12 +12,16 @@
             </select>
             <h3 class="my-3">Brands</h3>
             <ul class="list-group">
-                <li class="list-group-item " *ngFor="let brand of productBrandList">{{brand.name}}</li>
+                <li class="list-group-item " *ngFor="let brand of productBrandList"
+                    [class.active]="brand.id == this.brandIdSelected" [value]="brand.id"
+                    (click)="onBrandSelected(brand.id)">{{brand.name}}</li>
 
             </ul>
             <h3 class="my-3">Types</h3>
             <ul class="list-group">
-                <li class="list-group-item " *ngFor="let type of productTypeList">{{type.name}}</li>
+                <li class="list-group-item " *ngFor="let type of productTypeList"
+                    [class.active]="type.id == this.typeIdSelected" [value]="type.id" (click)="onTypeSelected(type.id)">
+                    {{type.name}}</li>
 
             </ul>
         </section>
