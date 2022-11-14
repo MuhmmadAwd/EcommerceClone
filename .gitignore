@@ -1,7 +1,6 @@
-API/obj/*
-API/bin/*
+*/obj
+*/bin
 appsettings.json
 *.db
 environments
 *.dll
-API/bin/Debug/net5.0/API.dll
